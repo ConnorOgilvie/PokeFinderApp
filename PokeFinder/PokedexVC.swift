@@ -39,6 +39,8 @@ class PokedexVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         parsePokemonCSV()
         initAudio()
         
+        print("CONNOR TEST: \(GlobalVariables.listOfPokemon)")
+        
         print("CONNOR: \(location)")
     }
     
@@ -59,6 +61,7 @@ class PokedexVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         }
     }
     
+    // might be able to edit this/remove this being that I can do this in VDL of PokeFinderVC
     func parsePokemonCSV() {
         
         let path = Bundle.main.path(forResource: "pokemon", ofType: "csv")!
@@ -76,6 +79,7 @@ class PokedexVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
                 
                 let poke = Pokemon(pokemonName: pokemonName, pokedexId: pokeId)
                 pokemon.append(poke)
+                GlobalVariables.listOfPokemon.append(pokemonName)
             }
             
         } catch let err as NSError {
@@ -232,13 +236,21 @@ class PokedexVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     @IBAction func choosePokemonToDropToMapTapped(_ sender: RoundButton) {
         
-        // START OFF HERE: TODO: PASS BACK LOCATION AND ID OF POKEMON TO POST. ALSO, NEED TO SOMEHOW MERGE POKEANNOTATION AND POKEMON MODEL CLASSES
+        // START OFF HERE: TODO: PASS BACK LOCATION AND ID OF POKEMON TO POST. ALSO, NEED TO SOMEHOW MERGE POKEANNOTATION AND POKEMON MODEL CLASSES. USE SOME SORT OF BOOLEAN VALUE TO POST AUTOMATICALLY FROM POKEFINDERVC WHEN IT LOADS BY CALLING CREATESIGHTNG METHOD IN VIEWDIDLOAD AND ONLY PASS IN VALUES IF POKEMON HAS BEEN SELECTED, NOTIFIED BY BOOLEAN VALUE
         
+        
+        //performSegue(withIdentifier: "toPokeFinderVC", sender: pokemonID)
+        
+        // NEED TO FIND A WAY TO SET THE postPOKEMON to TRUE.
         let pokePost = PokeFinderVC()
+        pokePost.pokemonID = self.pokemonID
+        pokePost.postPokemon = true
         
-        pokePost.createSighting(forLocation: location, withPokemon: pokemonID)
+        print("Connor: Pokedex: \(pokePost.pokemonID), \(pokePost.postPokemon)")
         
-        performSegue(withIdentifier: "toPokeFinderVC", sender: nil)
+      dismiss(animated: true, completion: nil)
+        
+        
     }
     
     
@@ -260,6 +272,20 @@ class PokedexVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         
     }
     
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        
+//        if segue.identifier == "toPokeFinderVC" {
+//            
+//            if let postPoke = segue.destination as? PokeFinderVC {
+//                
+//                if let pokemonID = sender as? Int {
+//                    
+//                    postPoke.pokemonID = pokemonID
+//                }
+//            }
+//        }
+//        
+//    }
     
     
     

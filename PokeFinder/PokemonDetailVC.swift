@@ -58,7 +58,7 @@ class PokemonDetailVC: UIViewController {
         heightLbl.text = pokemon.height
         weightLbl.text = pokemon.weight
         typeLbl.text = pokemon.type
-        descriptionLbl.text = pokemon.description
+        descriptionLbl.text = pokemon.pokemonDescription
         
         if pokemon.nextEvolutionID == "" {
             

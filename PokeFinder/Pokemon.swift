@@ -8,12 +8,13 @@
 
 import Foundation
 import Alamofire
+import MapKit
 
 class Pokemon {
     
     private var _pokemonName: String!
     private var _pokedexId: Int!
-    private var _description: String!
+    private var _pokemonDescription: String!
     private var _type: String!
     private var _defense: String!
     private var _height: String!
@@ -24,6 +25,7 @@ class Pokemon {
     private var _nextEvolutionID: String!
     private var _nextEvolutionLevel: String!
     private var _pokemonURL: String!
+
     
     
     var nextEvolutionName: String {
@@ -54,14 +56,14 @@ class Pokemon {
     }
     
     
-    var description: String {
+    var pokemonDescription: String {
         
-        if _description == nil {
+        if _pokemonDescription == nil {
             
-            _description = ""
+            _pokemonDescription = ""
         }
         
-        return _description
+        return _pokemonDescription
     }
     
     var type: String {
@@ -142,6 +144,7 @@ class Pokemon {
         self._pokemonURL = "\(URL_BASE)\(URL_POKEMON)\(self.pokedexId)/"
         
     }
+  
     
     
     func downloadPokemonDeatils(completed: @escaping DownloadComplete) {
@@ -210,7 +213,7 @@ class Pokemon {
                                     
                                     let newDescription = description.replacingOccurrences(of: "POKMON", with: "Pokemon")
                                     
-                                    self._description = newDescription
+                                    self._pokemonDescription = newDescription
                                     
                                     //print(newDescription)
                                 }
@@ -220,7 +223,7 @@ class Pokemon {
                     }
                 } else {
                     
-                    self._description = ""
+                    self._pokemonDescription = ""
                 }
                 
                 if let evolutions = dict["evolutions"] as? [Dictionary<String, AnyObject>] , evolutions.count > 0 {

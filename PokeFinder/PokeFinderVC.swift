@@ -19,6 +19,9 @@ class PokeFinderVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelega
     var geoFire: GeoFire!
     var geoFireRef: FIRDatabaseReference!
     var pokemonToPost = [""]
+    var pokemonID = Int()
+    var postPokemon: Bool!
+    var postLocation = CLLocation()
     
     
     override func viewDidLoad() {
@@ -30,13 +33,53 @@ class PokeFinderVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelega
         geoFireRef = FIRDatabase.database().reference()
         geoFire = GeoFire(firebaseRef: geoFireRef)
         
+        parsePokemonCSV()
+        
+        postPokemon = false
+        
     }
     
     // CODE FOR MAP VIEW
     
     override func viewDidAppear(_ animated: Bool) {
         locationAuthStatus()
+        
+        if postPokemon {
+            print("CONNOR: GOT HERE, SHOULD POST")
+            createSighting(forLocation: postLocation, withPokemon: pokemonID)
+        }
+        
+        print("CONNOR: VIEW DID APPEAR CALLED, postPokemon is FALSE")
     }
+    
+    
+    
+    func parsePokemonCSV() {
+        
+        let path = Bundle.main.path(forResource: "pokemon", ofType: "csv")!
+        
+        do {
+            
+            let csv = try CSV(contentsOfURL: path)
+            let rows = csv.rows
+            //print(rows)
+            
+            for row in rows {
+                
+                let pokeId = Int(row["id"]!)!
+                let pokemonName = row["identifier"]!
+                
+//                let poke = Pokemon(pokemonName: pokemonName, pokedexId: pokeId)
+//                pokemon.append(poke)
+                GlobalVariables.listOfPokemon.append(pokemonName)
+            }
+            
+        } catch let err as NSError {
+            
+            print(err.debugDescription)
+        }
+    }
+
     
     func locationAuthStatus() {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
@@ -193,6 +236,8 @@ class PokeFinderVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelega
         
        // let rand = arc4random_uniform(151) + 1
        // createSighting(forLocation: location, withPokemon: Int(rand))
+        
+        postLocation = location
         
         //will send location
         performSegue(withIdentifier: "toPokedexVC", sender: location)

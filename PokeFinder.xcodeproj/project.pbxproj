@@ -31,6 +31,7 @@
 		6BAE60411ED93C9D00240E08 /* csv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BAE60401ED93C9D00240E08 /* csv.swift */; };
 		6BAE60431ED93CAB00240E08 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BAE60421ED93CAB00240E08 /* Constants.swift */; };
 		6BAE60451ED945E700240E08 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BAE60441ED945E700240E08 /* RoundButton.swift */; };
+		6BAE60471ED96A5D00240E08 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BAE60461ED96A5D00240E08 /* GlobalVariables.swift */; };
 		A6E4508B33841DBF16A9B542 /* Pods_PokeFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096168D7B7D63FF0286CCC5C /* Pods_PokeFinder.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		6BAE60401ED93C9D00240E08 /* csv.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = csv.swift; sourceTree = "<group>"; };
 		6BAE60421ED93CAB00240E08 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6BAE60441ED945E700240E08 /* RoundButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
+		6BAE60461ED96A5D00240E08 /* GlobalVariables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		93064F51DBEFAFEF59D6E4D5 /* Pods-PokeFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-PokeFinder/Pods-PokeFinder.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -215,6 +217,7 @@
 				6B1CF4091E941CAC006D4BB8 /* GoogleService-Info.plist */,
 				6B1CF4031E941C83006D4BB8 /* Info.plist */,
 				6B1CF42A1E9420FD006D4BB8 /* PokeFinder-Bridging-Header.h */,
+				6BAE60461ED96A5D00240E08 /* GlobalVariables.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				6B1CF4321E9433A9006D4BB8 /* PokeAnnotation.swift in Sources */,
 				6B1CF4211E941F8C006D4BB8 /* GFQuery.m in Sources */,
 				6B5B6FC81ED9394000E2916B /* PokedexVC.swift in Sources */,
+				6BAE60471ED96A5D00240E08 /* GlobalVariables.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

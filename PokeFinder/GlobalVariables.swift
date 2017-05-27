@@ -11,4 +11,6 @@ import Foundation
 struct GlobalVariables {
     
     static var listOfPokemon = [String]()
+    static var pokemonNameToPost = ""
+    static var pokemonID = 0
 }

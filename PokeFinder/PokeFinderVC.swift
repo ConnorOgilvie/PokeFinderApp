@@ -37,6 +37,8 @@ class PokeFinderVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelega
         
         postPokemon = false
         
+        print("CONNOR: Global Variable: \(GlobalVariables.listOfPokemon) AND \(GlobalVariables.pokemonNameToPost)")
+        
     }
     
     // CODE FOR MAP VIEW
@@ -44,9 +46,17 @@ class PokeFinderVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelega
     override func viewDidAppear(_ animated: Bool) {
         locationAuthStatus()
         
+        if GlobalVariables.pokemonNameToPost != "" {
+            postPokemon = true
+            pokemonID = GlobalVariables.pokemonID
+        }
+        
         if postPokemon {
             print("CONNOR: GOT HERE, SHOULD POST")
             createSighting(forLocation: postLocation, withPokemon: pokemonID)
+            // now reset everything here
+            GlobalVariables.pokemonNameToPost = ""
+            GlobalVariables.pokemonID = 0
         }
         
         print("CONNOR: VIEW DID APPEAR CALLED, postPokemon is FALSE")
@@ -66,7 +76,7 @@ class PokeFinderVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelega
             
             for row in rows {
                 
-                let pokeId = Int(row["id"]!)!
+               // let pokeId = Int(row["id"]!)!
                 let pokemonName = row["identifier"]!
                 
 //                let poke = Pokemon(pokemonName: pokemonName, pokedexId: pokeId)

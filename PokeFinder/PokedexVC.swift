@@ -21,6 +21,7 @@ class PokedexVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     var pokemon = [Pokemon]()
     var filteredPokemon = [Pokemon]()
+    var filteredPokemonName = [String]()
     var musicPlayer: AVAudioPlayer!
     var inSearchMode = false
     var selectedRow = Int()
@@ -210,6 +211,7 @@ class PokedexVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
             
             let lower = searchBar.text!.lowercased()
             
+            filteredPokemonName = GlobalVariables.listOfPokemon.filter({$0.range(of: lower) != nil})
             filteredPokemon = pokemon.filter({$0.pokemonName.range(of: lower) != nil})
             collection.reloadData()
         }
@@ -238,15 +240,30 @@ class PokedexVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         
         // START OFF HERE: TODO: PASS BACK LOCATION AND ID OF POKEMON TO POST. ALSO, NEED TO SOMEHOW MERGE POKEANNOTATION AND POKEMON MODEL CLASSES. USE SOME SORT OF BOOLEAN VALUE TO POST AUTOMATICALLY FROM POKEFINDERVC WHEN IT LOADS BY CALLING CREATESIGHTNG METHOD IN VIEWDIDLOAD AND ONLY PASS IN VALUES IF POKEMON HAS BEEN SELECTED, NOTIFIED BY BOOLEAN VALUE
         
+        let pokemonToPost: String!
+        
+        if inSearchMode {
+            
+            pokemonToPost = filteredPokemonName[selectedRow]
+            
+        } else {
+            
+            pokemonToPost = GlobalVariables.listOfPokemon[selectedRow]
+            
+        }
+        
+        GlobalVariables.pokemonNameToPost = pokemonToPost
+        GlobalVariables.pokemonID = pokemonID
+        
         
         //performSegue(withIdentifier: "toPokeFinderVC", sender: pokemonID)
         
         // NEED TO FIND A WAY TO SET THE postPOKEMON to TRUE.
-        let pokePost = PokeFinderVC()
-        pokePost.pokemonID = self.pokemonID
-        pokePost.postPokemon = true
-        
-        print("Connor: Pokedex: \(pokePost.pokemonID), \(pokePost.postPokemon)")
+//        let pokePost = PokeFinderVC()
+//        pokePost.pokemonID = self.pokemonID
+//        pokePost.postPokemon = true
+//        
+//        print("Connor: Pokedex: \(pokePost.pokemonID), \(pokePost.postPokemon)")
         
       dismiss(animated: true, completion: nil)
         

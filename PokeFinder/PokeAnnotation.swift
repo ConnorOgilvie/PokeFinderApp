@@ -172,6 +172,7 @@ class PokeAnnotation: NSObject, MKAnnotation {
     init(coordinate: CLLocationCoordinate2D, pokemonNumber: Int) {
         self.coordinate = coordinate
         self.pokemonNumber = pokemonNumber
+        print("CONNOR: pokemonNumber: \(pokemonNumber)")
         self.pokemonName = GlobalVariables.listOfPokemon[pokemonNumber-1].capitalized
         self.title = self.pokemonName
     }

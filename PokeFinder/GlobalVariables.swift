@@ -7,10 +7,12 @@
 //
 
 import Foundation
+import AVFoundation
 
 struct GlobalVariables {
     
     static var listOfPokemon = [String]()
     static var pokemonNameToPost = ""
     static var pokemonID = 0
+    static var musicPlayer: AVAudioPlayer!
 }

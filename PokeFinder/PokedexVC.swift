@@ -17,12 +17,13 @@ class PokedexVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var showDetailsBtn: RoundButton!
     @IBOutlet weak var dropPokemonBtn: RoundButton!
+    @IBOutlet weak var pokemonMusic: UIButton!
     
     
     var pokemon = [Pokemon]()
     var filteredPokemon = [Pokemon]()
     var filteredPokemonName = [String]()
-    var musicPlayer: AVAudioPlayer!
+    //var musicPlayer: AVAudioPlayer!
     var inSearchMode = false
     var selectedRow = Int()
     var pokemonID = Int()
@@ -38,29 +39,48 @@ class PokedexVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         searchBar.returnKeyType = UIReturnKeyType.done
         
         parsePokemonCSV()
-        initAudio()
+        
+        if GlobalVariables.musicPlayer.isPlaying {
+            pokemonMusic.alpha = 1.0
+        } else {
+            pokemonMusic.alpha = 0.2
+        }
+    
+        
+        //initAudio()
         
         print("CONNOR TEST: \(GlobalVariables.listOfPokemon)")
         
         print("CONNOR: \(location)")
     }
     
-    func initAudio() {
+    
+    override func viewDidAppear(_ animated: Bool) {
         
-        let path = Bundle.main.path(forResource: "music", ofType: "mp3")!
-        
-        do {
-            
-            musicPlayer = try AVAudioPlayer(contentsOf: URL(string: path)!)
-            musicPlayer.prepareToPlay()
-            musicPlayer.numberOfLoops = -1 //means it will loop continuously
-            musicPlayer.play()
-            
-        } catch let err as NSError {
-            
-            print(err.debugDescription)
+        if GlobalVariables.musicPlayer.isPlaying {
+            pokemonMusic.alpha = 1.0
+        } else {
+            pokemonMusic.alpha = 0.2
         }
+        
     }
+    
+//    func initAudio() {
+//        
+//        let path = Bundle.main.path(forResource: "music", ofType: "mp3")!
+//        
+//        do {
+//            
+//            musicPlayer = try AVAudioPlayer(contentsOf: URL(string: path)!)
+//            musicPlayer.prepareToPlay()
+//            musicPlayer.numberOfLoops = -1 //means it will loop continuously
+//            musicPlayer.play()
+//            
+//        } catch let err as NSError {
+//            
+//            print(err.debugDescription)
+//        }
+//    }
     
     // might be able to edit this/remove this being that I can do this in VDL of PokeFinderVC
     func parsePokemonCSV() {
@@ -173,15 +193,19 @@ class PokedexVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     @IBAction func musicBtnPressed(_ sender: UIButton) {
         
-        if musicPlayer.isPlaying {
+        if GlobalVariables.musicPlayer.isPlaying {
             
-            musicPlayer.pause()
+            GlobalVariables.musicPlayer.pause()
             sender.alpha = 0.2
+            
+            //GlobalVariables.musicPlaying = false
             
         } else {
             
-            musicPlayer.play()
+            GlobalVariables.musicPlayer.play()
             sender.alpha = 1.0
+            
+            //GlobalVariables.musicPlaying = true
         }
         
     }

@@ -9,10 +9,13 @@
 import UIKit
 import MapKit
 import Firebase
+import AVFoundation
 
 class PokeFinderVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var pokemonMusic: UIButton!
+    
     
     let locationManager = CLLocationManager()
     var mapHasCenteredOnce = false
@@ -22,6 +25,7 @@ class PokeFinderVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelega
     var pokemonID = Int()
     var postPokemon: Bool!
     var postLocation = CLLocation()
+   // var musicPlayer: AVAudioPlayer!
     
     
     override func viewDidLoad() {
@@ -36,6 +40,8 @@ class PokeFinderVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelega
         parsePokemonCSV()
         
         postPokemon = false
+        
+        initAudio()
         
         print("CONNOR: Global Variable: \(GlobalVariables.listOfPokemon) AND \(GlobalVariables.pokemonNameToPost)")
         
@@ -60,6 +66,14 @@ class PokeFinderVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelega
         }
         
         print("CONNOR: VIEW DID APPEAR CALLED, postPokemon is FALSE")
+        
+        if GlobalVariables.musicPlayer.isPlaying {
+            pokemonMusic.alpha = 1.0
+        } else {
+            pokemonMusic.alpha = 0.2
+        }
+        
+        
     }
     
     
@@ -83,6 +97,24 @@ class PokeFinderVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelega
 //                pokemon.append(poke)
                 GlobalVariables.listOfPokemon.append(pokemonName)
             }
+            
+        } catch let err as NSError {
+            
+            print(err.debugDescription)
+        }
+    }
+    
+    
+    func initAudio() {
+        
+        let path = Bundle.main.path(forResource: "music", ofType: "mp3")!
+        
+        do {
+            
+            GlobalVariables.musicPlayer = try AVAudioPlayer(contentsOf: URL(string: path)!)
+            GlobalVariables.musicPlayer.prepareToPlay()
+            GlobalVariables.musicPlayer.numberOfLoops = -1 //means it will loop continuously
+            GlobalVariables.musicPlayer.play()
             
         } catch let err as NSError {
             
@@ -235,6 +267,24 @@ class PokeFinderVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelega
     }
     
     
+    @IBAction func musicBtnPressed(_ sender: UIButton) {
+        
+        if GlobalVariables.musicPlayer.isPlaying {
+            
+            GlobalVariables.musicPlayer.pause()
+            sender.alpha = 0.2
+            
+            //GlobalVariables.musicPlaying = false
+            
+        } else {
+            
+            GlobalVariables.musicPlayer.play()
+            sender.alpha = 1.0
+            
+            //GlobalVariables.musicPlaying = true
+        }
+        
+    }
     
 
 
@@ -254,6 +304,10 @@ class PokeFinderVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelega
         
         
     }
+    
+    
+    
+    
 
 }
 

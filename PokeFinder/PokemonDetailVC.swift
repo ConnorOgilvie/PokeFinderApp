@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class PokemonDetailVC: UIViewController {
     
@@ -24,8 +25,9 @@ class PokemonDetailVC: UIViewController {
     @IBOutlet weak var currentEvoImg: UIImageView!
     @IBOutlet weak var nextEvoImg: UIImageView!
     @IBOutlet weak var evoLbl: UILabel!
+    @IBOutlet weak var pokemonMusic: UIButton!
     
-    
+    //var musicPlayer: AVAudioPlayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +49,23 @@ class PokemonDetailVC: UIViewController {
         }
         
         
+        if GlobalVariables.musicPlayer.isPlaying {
+            pokemonMusic.alpha = 1.0
+        } else {
+            pokemonMusic.alpha = 0.2
+        }
         
+        
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if GlobalVariables.musicPlayer.isPlaying {
+            pokemonMusic.alpha = 1.0
+        } else {
+            pokemonMusic.alpha = 0.2
+        }
         
     }
     
@@ -86,6 +104,27 @@ class PokemonDetailVC: UIViewController {
         
         dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func musicBtnPressed(_ sender: UIButton) {
+        
+        if GlobalVariables.musicPlayer.isPlaying {
+            
+            GlobalVariables.musicPlayer.pause()
+            sender.alpha = 0.2
+            
+            //GlobalVariables.musicPlaying = false
+            
+        } else {
+            
+            GlobalVariables.musicPlayer.play()
+            sender.alpha = 1.0
+            
+            //GlobalVariables.musicPlaying = true
+        }
+        
+        
+    }
+    
     
     
     
